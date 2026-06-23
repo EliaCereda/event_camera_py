@@ -30,7 +30,7 @@ find_package(ament_cmake_ros REQUIRED)
 find_package(ament_cmake_auto REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 # to avoid unknown command python3_add_library on Ubuntu 22.04
-find_package(Python3 COMPONENTS Interpreter Development)
+find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
 
 set(ROS2_DEPENDENCIES
   "pybind11_vendor"
@@ -47,8 +47,8 @@ find_package(PythonExtra REQUIRED)
 find_package(pybind11)
 
 
-pybind11_add_module(_event_camera_py SHARED src/decoder.cpp)
-target_link_libraries(_event_camera_py PUBLIC ${event_camera_codecs_TARGETS} pybind11::pybind11)
+pybind11_add_module(_event_camera_py src/decoder.cpp)
+target_link_libraries(_event_camera_py PUBLIC ${event_camera_codecs_TARGETS} pybind11::module)
 
 #ament_python_install_module(${PROJECT_NAME})
 ament_python_install_package(${PROJECT_NAME})
